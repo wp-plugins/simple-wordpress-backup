@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: bannerweb
 Tags: backup, database, msql, sql
-Requires at least: 2.7
+Requires at least: 3.0
 Tested up to: 3.0
 Stable tag: 0.1
 
