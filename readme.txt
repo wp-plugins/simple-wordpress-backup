@@ -3,7 +3,7 @@ Contributors: bannerweb
 Tags: backup, database, msql, sql
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 0.1
+Stable tag: 0.1.1
 
 Simple Wordpress Backup allows you to back up your Wordpress Database with just one click!
 
@@ -27,6 +27,9 @@ Please follow us on twitter and ask your question: [@bannerweb](http://twitter.c
 
 
 == Changelog ==
+
+= 0.1.1 =
+* Bug fixes
 
 = 0.1 =
 * Pre-Alpha release
