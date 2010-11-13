@@ -3,14 +3,14 @@ Contributors: bannerweb
 Tags: backup, database, msql, sql
 Requires at least: 3.0
 Tested up to: 3.0
-Stable tag: 0.1.1
+Stable tag: 0.1.1.1
 
-Simple Wordpress Backup allows you to back up your Wordpress Database with just one click!
+Simple Wordpress Backup allows you to back up your WordPress Database with just one click!
 
 == Description ==
 
-<p>Simple Wordpress Backup allows you to back up your Wordpress Database with just one click.</p>
-<p>Creates a full dump of your Wordpress MySQL Database.</p>
+<p>Simple Wordpress Backup allows you to back up your WordPress Database with just one click.</p>
+<p>Creates a full dump of your WordPress MySQL Database.</p>
 <p>ATTENTION: pre-alpha Release use at your own risk! Test it before using in your productive environment.</p>
 
 == Frequently Asked Questions ==
@@ -27,6 +27,9 @@ Please follow us on twitter and ask your question: [@bannerweb](http://twitter.c
 
 
 == Changelog ==
+
+= 0.1.1.1 =
+* Minor bug fix
 
 = 0.1.1 =
 * Bug fixes

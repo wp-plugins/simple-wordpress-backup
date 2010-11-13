@@ -5,7 +5,7 @@
 Plugin Name: Simple Wordpress Backup
 Plugin URI: http://www.bannerweb.ch/
 Description: Simple Wordpress Backup allows you to back up your Wordpress Database with just one click!
-Version: 0.1.1
+Version: 0.1.1.1
 Author: Bannerweb GmbH
 Author URI: http://www.bannerweb.ch/
 
@@ -19,15 +19,15 @@ function swb_incompatibility_notification(){
 	
 	echo '<div id="message" class="error">
 	
-	<p><b>The &quot;Simple Twitter Status Updates&quot; plugin does not work on this wordpress installation!</b></p>
-	<p>Please check your installation for following minimum requirements:</p>
+	<p><b>The &quot;Simple Wordpress Backup&quot; plugin does not work on this WordPress installation!</b></p>
+	<p>Please check your WordPress installation for following minimum requirements:</p>
 	
 	<p>
-	- Wordpress version 3.0 or higer<br />
+	- WordPress version 3.0 or higer<br />
 	- PHP version 5.2 or higher<br />
 	- PHP extension CURL 7.0 or higher<br />
 	- PHP is not running in SAVE MODE<br />
-	- OPEN_BASEDIR is not set in your php.ini
+	- OPEN_BASEDIR is set (not empty) in your php.ini
 	</p>
 	
 	<p>Do you need help? Contact us on twitter <a href="http://twitter.com/bannerweb">@bannerweb</a></p>
