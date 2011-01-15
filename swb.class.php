@@ -29,7 +29,7 @@ class SWB {
 		$backup_file_location			= 	dirname(__FILE__).'/backups/';
 		
 		// Needs to be simplified in the next release!
-			$backup_file_name 				= 	'swb_db_'.preg_replace('#[^a-z]#', '', preg_replace('#[http|https]#', '', strtolower(get_bloginfo('url')))).'_'.date("Ymd_his").'.sql.gz';
+			$backup_file_name 				= 	'swb_db_'.preg_replace('#[^a-z]#', '', preg_replace('#[http|https]#', '', strtolower(get_bloginfo('wpurl')))).'_'.date("Ymd_his").'.sql.gz';
 		
 		//echo $backup_file_location;
 		
@@ -121,8 +121,10 @@ class SWB {
 				echo '
 				<tr>
 					<td style="padding-right: 10px;">'.$file.'</td>
-					<td style="padding-right: 10px;"><a href="'.get_bloginfo('url').'/wp-content/plugins/simple-wordpress-backup/backups/'.$file.'"><img src="'.get_bloginfo('url').'/wp-content/plugins/simple-wordpress-backup/images/script_go.png" alt="" titel="Download" style="border: 0;" /></a></td>
-					<td><a href="javascript:if(confirm(\'Are you sure?\')===true){document.location.href=\'options-general.php?page=swb&swbAction=deleteBackup&file='.base64_encode($file).'\'}"<img src="'.get_bloginfo('url').'/wp-content/plugins/simple-wordpress-backup/images/delete.png" alt="" titel="Delete" style="border: 0;" /></td>
+					<td style="padding-right: 10px;">
+						<a href="'.get_bloginfo('wpurl').'/wp-content/plugins/simple-wordpress-backup/backups/'.$file.'"><img src="'.get_bloginfo('wpurl').'/wp-content/plugins/simple-wordpress-backup/images/script_go.png" alt="" titel="Download" style="border: 0;" /></a></td>
+					<td>
+						<a href="javascript:if(confirm(\'Are you sure?\')===true){document.location.href=\'options-general.php?page=swb&swbAction=deleteBackup&file='.base64_encode($file).'\'}"><img src="'.get_bloginfo('wpurl').'/wp-content/plugins/simple-wordpress-backup/images/delete.png" alt="" titel="Delete" style="border: 0;" /></td>
 				</tr>
 				';
 			}
@@ -134,6 +136,22 @@ class SWB {
 		
 		</table>
 		
+		<p>&nbsp;</p>
+		
+		<h3>Donate</h3>
+			
+		<p>Help us to keep this plugin up-to-date, to add more features, to give free support and to fix bugs with just a small amount of money.</p>
+		
+		<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+		<input type="hidden" name="cmd" value="_s-xclick">
+		<input type="hidden" name="hosted_button_id" value="Q97G6AMJHPQ3G">
+		<input type="image" src="https://www.paypal.com/en_US/CH/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+		<img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+		</form>
+		
+		
+		
+
 		<p>&nbsp;</p>
 		
 		</div>

@@ -5,35 +5,16 @@
 Plugin Name: Simple Wordpress Backup
 Plugin URI: http://www.bannerweb.ch/
 Description: Simple Wordpress Backup allows you to back up your Wordpress Database with just one click!
-Version: 0.1.1.1
+Version: 0.1.2
 Author: Bannerweb GmbH
 Author URI: http://www.bannerweb.ch/
 
 */
 
-# Functions
+# Define settings
 # -----------------------------------------------------
+define('SWB_PLUGIN_WWW', get_bloginfo('wpurl').'/wp-content/plugins/simple-wordpress-backup/');
 
-// Display incompatibility notification
-function swb_incompatibility_notification(){
-	
-	echo '<div id="message" class="error">
-	
-	<p><b>The &quot;Simple Wordpress Backup&quot; plugin does not work on this WordPress installation!</b></p>
-	<p>Please check your WordPress installation for following minimum requirements:</p>
-	
-	<p>
-	- WordPress version 3.0 or higer<br />
-	- PHP version 5.2 or higher<br />
-	- PHP extension CURL 7.0 or higher<br />
-	- PHP is not running in SAVE MODE<br />
-	- OPEN_BASEDIR is set (not empty) in your php.ini
-	</p>
-	
-	<p>Do you need help? Contact us on twitter <a href="http://twitter.com/bannerweb">@bannerweb</a></p>
-	
-	</div>';
-}
 
 # Compatibilty check / plugin initialization
 # -----------------------------------------------------
@@ -55,11 +36,14 @@ while(strlen($int_php_version) < 9){
 // Check if CURL is loaded, get version number and fill it up to 9 digits
 if(extension_loaded('curl') === true){
 	
-	$arr_curl_version = curl_version();
-	$int_curl_version = preg_replace('#[^0-9]#', '', $arr_curl_version['version']);
-	while(strlen($int_curl_version) < 9){
-		
-		$int_curl_version .= '0'; 
+	if(function_exists('curl_version')){
+	
+		$arr_curl_version = curl_version();
+		$int_curl_version = preg_replace('#[^0-9]#', '', $arr_curl_version['version']);
+		while(strlen($int_curl_version) < 9){
+			
+			$int_curl_version .= '0'; 
+		}
 	}
 }
 
@@ -74,12 +58,67 @@ if(extension_loaded('curl') === true){
 	}
 }
 
-// Check overall plugin compatibility
+// Hide errors
+error_reporting(0);
+
+
+# Functions
+# -----------------------------------------------------
+
+// Display incompatibility notification
+function swb_incompatibility_notification(){
+	
+	// Get global variables
+	global $int_wp_version;
+	global $int_php_version;
+	global $int_curl_version;
+	
+	// Get version data
+	$arr_curl_version = curl_version();
+	
+	echo '<div id="message" class="error">
+	
+	<p><b>The &quot;Simple WordPress Backup&quot; plugin does not work in this WordPress environment!</b></p>
+	
+	<table>
+	<tr>
+		<td style="width: 25px;"><img src="'.SWB_PLUGIN_WWW.'images/'.(($int_wp_version >= 300000000) ? 'success' : 'alert').'.png" alt="" title="'.$tmp_arr_log[2].'" /></td>
+		<td>Requires at least WordPress version 3.0 <i>(Installed: '.get_bloginfo('version').')</i></td>
+	</tr>
+	<tr>
+		<td style="width: 25px;"><img src="'.SWB_PLUGIN_WWW.'images/'.(($int_php_version >= 520000000) ? 'success' : 'alert').'.png" alt="" title="'.$tmp_arr_log[2].'" /></td>
+		<td>Requires at least PHP version 5.2 <i>(Installed: '.phpversion().')</i></td>
+	</tr>
+	<tr>
+		<td style="width: 25px;"><img src="'.SWB_PLUGIN_WWW.'images/'.(($int_curl_version >= 700000000) ? 'success' : 'alert').'.png" alt="" title="'.$tmp_arr_log[2].'" /></td>
+		<td>Requires at least PHP extension CURL version 7.0 
+		<i>('.((extension_loaded('curl') === true) ? 'Installed: '.$arr_curl_version['version'] : 'CURL is not installed!').')</i></td>
+	</tr>
+	<tr>
+		<td style="width: 25px;"><img src="'.SWB_PLUGIN_WWW.'images/'.((!ini_get('safe_mode')) ? 'success' : 'alert').'.png" alt="" title="'.$tmp_arr_log[2].'" /></td>
+		<td>PHP save mode must be turned OFF in your php.ini
+		<i>('.((!ini_get('safe_mode')) ? 'Save mode is turned OFF' : 'Save mode is turned ON').')</i></td>
+	</tr>
+	<tr>
+		<td style="width: 25px;"><img src="'.SWB_PLUGIN_WWW.'images/'.((!ini_get('open_basedir')) ? 'success' : 'warning').'.png" alt="" title="'.$tmp_arr_log[2].'" /></td>
+		<td>The php.ini value OPEN_BASEDIR should be empty
+		<i>('.((!ini_get('open_basedir')) ? 'OPEN_BASEDIR is empty' : 'OPEN_BASEDIR is set with following value ['.ini_get('open_basedir').']').') [should not be a problem but sometimes is one]</i></td>
+	</tr>
+	</table>
+	
+	<p>Do you need help? Contact us on twitter <a href="http://twitter.com/bannerweb">@bannerweb</a></p>
+	
+	</div>';
+}
+
+
+# Check overall plugin compatibility
+# -----------------------------------------------------
+
 if(	$int_wp_version >= 300000000 and 		// Wordpress version > 2.7
 	$int_php_version >= 520000000 and 		// PHP version > 5.2
 	$int_curl_version >= 700000000 and 		// CURL version > 7.0
 	!ini_get('safe_mode') and				// SAVE_MODE is turned OFF
-	!ini_get('open_basedir') and			// OPEN_BASEDIR is empty
 	defined('ABSPATH') and 					// Plugin is not loaded directly
 	defined('WPINC')){						// Plugin is not loaded directly
 		
